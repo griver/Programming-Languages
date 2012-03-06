@@ -1,0 +1,9 @@
+digraph NFA {
+    Final;
+    B;
+    S;
+        B -> Final [label="b"];
+B -> Final [label="null"];
+    S -> S [label="a"];
+S -> B [label="a"];
+}

@@ -1,0 +1,9 @@
+digraph Typical_NFA {
+    Final;
+    B;
+    S;
+    B -> Final [label="b"];
+    B -> Final [label="epsilon"];
+    S -> S [label="a"];
+    S -> B [label="a"];
+}
