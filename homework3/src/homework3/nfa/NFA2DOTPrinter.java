@@ -1,29 +1,18 @@
-package homework3;
+package homework3.nfa;
 
 
-import java.io.FileWriter;
-import java.io.BufferedWriter;
-import java.io.PrintWriter;
-
-import java.io.IOException;
+import java.io.*;
 import java.util.Map;
 
 
-/**
- * Created by IntelliJ IDEA.
- * User: griver
- * Date: 05.03.12
- * Time: 14:26
- * To change this template use File | Settings | File Templates.
- */
-public class NFA2DOTPrinter {
+public class NFA2DOTPrinter implements Closeable {
     private PrintWriter printWriter = null;
     
     public NFA2DOTPrinter(String filename) throws IOException {
         printWriter = new PrintWriter(new BufferedWriter(new FileWriter(filename)), true);    
     } 
     
-    public void printNFA(Map<String, NFANode> automate, NFAParameters param) {
+    public void print(Map<String, NFANode> automate, NFAParameters param) {
         String spaces = "    ";
         printWriter.println("digraph " + param.automateName + " {");
         

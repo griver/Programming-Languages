@@ -1,39 +1,58 @@
 package homework3;
 
+import homework3.dfa.*;
+import homework3.grammar.GrammarRule;
+import homework3.grammar.GrammarsReader;
+import homework3.grammar.RegularGrammarsReader;
+import homework3.nfa.*;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.Set;
 
-/**
- * Created by IntelliJ IDEA.
- * User: griver
- * Date: 03.03.12
- * Time: 22:54
- * To change this template use File | Settings | File Templates.
- */
 public class Main {
     public static void main(String[] args) {
-        NFAParameters parameters =new NFAParameters("S", "Final", "epsilon", "Typical_NFA");
+        NFAParameters parameters = new NFAParameters("S", "Final", "eps", "Simple");
         Scanner in = new Scanner(System.in);
+
         try {                                                     
             GrammarsReader reader = new RegularGrammarsReader();
             NFABuilder builder = new NFABuilder(parameters);
             List<GrammarRule> rules = reader.read("input.txt");
 
-            NFA2DOTPrinter printer = new NFA2DOTPrinter("output.dot");
-
             Map<String, NFANode> automate = builder.build(rules);
-            printer.printNFA(builder.build(rules),  parameters);
+
+            NFA2DFAConverter converter =
+                    new NFA2DFAConverter(parameters, automate);
+            Map<Set<String>, DFANode> dfa = converter.convert();
+            DFAParameters dfaParameters = converter.getParameters();
+
+            NFA2DOTPrinter printer = new NFA2DOTPrinter("outputNfa.dot");
+            printer.print(automate, parameters);
             printer.close();
 
-            System.out.println("Введите слово: ");
+            DFA2DOTPrinter printerDfa = new DFA2DOTPrinter("outputDfa.dot");
+            printerDfa.print(dfa, dfaParameters);
+            printerDfa.close();
+
+            System.out.println("Input the word: ");
             String word = in.nextLine();
 
             NFAInterpreter interpreter = new NFAInterpreter(automate, parameters);
             if(interpreter.checkWord(word)) {
-                System.out.println("Слово: "+ word + " принадлежит заданому языку");
+                System.out.println("Word: "+ word + " was accepted by NFA.");
             } else {
-                System.out.println("Слово: "+ word + " не принадлежит заданому языку");
+                System.out.println("Word: "+ word + " was rejected by NFA.");
+            }
+
+            DFAInterpreter dfaInterpreter = new DFAInterpreter(dfa, dfaParameters);
+            if(dfaInterpreter.checkWord(word)) {
+                System.out.println("Word: "+ word + " was accepted by DFA.");
+            } else {
+                System.out.println("Word: "+ word + " was rejected by DFA.");
             }
 
 
@@ -44,6 +63,5 @@ public class Main {
             System.err.println(e.getMessage());
 
         }
-        
     }
 }

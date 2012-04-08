@@ -1,10 +1,8 @@
-package homework3;
+package homework3.nfa;
 
-import java.util.Set;
 import java.util.HashSet;
-import java.util.Map;    
-import java.util.List;
-import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -34,16 +32,16 @@ public class NFAInterpreter {
 
         for(int i = 0; i<word.length(); ++i) {
             String terminal = Character.toString(word.charAt(i));
-            this.changeStatement(terminal);
+            this.changeState(terminal);
         }
 
         return activeNodes.contains(finalNode);
     }
 
 
-    public void changeStatement( String terminal ) {
+    public void changeState(String terminal) {
         Set<NFANode> nodes = new HashSet<NFANode>();
-        NFANode destination = null;
+        NFANode destination;
         
         // для каждой активной вершины
         for(NFANode node : activeNodes) { 

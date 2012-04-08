@@ -1,11 +1,10 @@
-package homework3;
+package homework3.nfa;
 
-import java.util.List;
-import java.util.Set;
-import java.util.HashSet;
-import java.util.ArrayList;
-import java.util.Map;
+import homework3.grammar.GrammarRule;
+
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 /**
  * Created by IntelliJ IDEA.
  * User: griver
@@ -22,11 +21,12 @@ public class NFABuilder {
     }
 
     public Map<String, NFANode> build(List<GrammarRule> rules) {
-        //НКА хранится ввиде списка вершин,каждая вершина хранит ребра ведущие из неё
+        //НКА хранится в виде списка вершин, каждая вершина
+        // хранит ребра ведущие из неё
         Map<String, NFANode> automate = new HashMap<String,NFANode>();
 
         for(GrammarRule rule : rules) {
-            if(automate.containsKey(rule.left) == false) {
+            if(!automate.containsKey(rule.left)) {
                 automate.put(rule.left, new NFANode(rule.left) );
             }
         }

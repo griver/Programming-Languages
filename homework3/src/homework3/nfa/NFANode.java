@@ -1,16 +1,10 @@
-package homework3;
+package homework3.nfa;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-/**
- * Created by IntelliJ IDEA.
- * User: griver
- * Date: 04.03.12
- * Time: 21:27
- * To change this template use File | Settings | File Templates.
- */
 public class NFANode {
     private String nonterminal = null;
     private boolean active = false;
@@ -40,4 +34,17 @@ public class NFANode {
         return this.edges;
     }
 
+    public Set<NFANode> getTerminalClosure(String terminal,
+                                           String emptyTerminal) {
+        Set<NFANode> result = new HashSet<NFANode>();
+        if(terminal == emptyTerminal) {
+            result.add(this);
+        }
+        for (NFAEdge edge : edges) {
+            if(edge.getTerminal().equals(terminal)) {
+                result.add(edge.getDestination());
+            }
+        }
+        return result;
+    }
 }

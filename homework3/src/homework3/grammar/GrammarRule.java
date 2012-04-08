@@ -1,4 +1,4 @@
-package homework3;
+package homework3.grammar;
 
 /**
  * Created by IntelliJ IDEA.

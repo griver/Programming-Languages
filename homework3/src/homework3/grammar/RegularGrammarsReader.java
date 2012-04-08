@@ -1,12 +1,11 @@
-package homework3;
+package homework3.grammar;
 
-import java.io.*;
-import java.util.List;
-import java.io.FileNotFoundException;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -21,7 +20,7 @@ public class RegularGrammarsReader implements GrammarsReader {
 
         BufferedReader bufferedReader = new BufferedReader(new FileReader(name));
         List<GrammarRule> rules = new ArrayList<GrammarRule>();
-        String str = null;
+        String str;
 
         try {
             do {

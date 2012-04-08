@@ -1,4 +1,4 @@
-package homework3;
+package homework3.nfa;
 
 /**
  * Created by IntelliJ IDEA.
@@ -20,7 +20,8 @@ public class NFAEdge {
         return this.terminal;
     }
 
-    //Ну можно пройти по ребру и активировать его а можно получить вершину с другого конца и активировать вручную.
+    //Ну можно пройти по ребру и активировать его а можно получить вершину
+    // с другого конца и активировать вручную.
     public NFANode getDestination() {
         return destination;
     }
