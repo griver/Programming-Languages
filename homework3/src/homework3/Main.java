@@ -8,7 +8,6 @@ import homework3.nfa.*;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -20,7 +19,8 @@ public class Main {
         try {                                                     
             GrammarsReader reader = new RegularGrammarsReader();
             NFABuilder builder = new NFABuilder(parameters);
-            List<GrammarRule> rules = reader.read("input.txt");
+            // Troubles with paths, hardcode for now
+            List<GrammarRule> rules = reader.read("../../../input.txt");
 
             NFA nfa = builder.build(rules);
 
@@ -43,28 +43,28 @@ public class Main {
             NFA2DFAConverter converter = new NFA2DFAConverter(nfa);
             DFA dfa = converter.getDFA();
 
-            NFA2DOTPrinter printer = new NFA2DOTPrinter("outputNfa.dot");
+            NFA2DOTPrinter printer = new NFA2DOTPrinter("../../../outputNfa.dot");
             printer.print(nfa, nfa.getParameters());
             printer.close();
 
-            printer = new NFA2DOTPrinter("outputNfaNoEps.dot");
+            printer = new NFA2DOTPrinter("../../../outputNfaNoEps.dot");
             nfa.removeEpsilon();
             printer.print(nfa, nfa.getParameters());
             printer.close();
 
-            printer = new NFA2DOTPrinter("outputNfaUnion.dot");
+            printer = new NFA2DOTPrinter("../../../outputNfaUnion.dot");
             printer.print(nfaUnion, nfaUnion.getParameters());
             printer.close();
 
-            printer = new NFA2DOTPrinter("outputNfaClosure.dot");
+            printer = new NFA2DOTPrinter("../../../outputNfaClosure.dot");
             printer.print(nfaCl, nfaCl.getParameters());
             printer.close();
 
-            DFA2DOTPrinter printerDfa = new DFA2DOTPrinter("outputDfa.dot");
+            DFA2DOTPrinter printerDfa = new DFA2DOTPrinter("../../../outputDfa.dot");
             printerDfa.print(dfa, dfa.getParameters());
             printerDfa.close();
 
-            printerDfa = new DFA2DOTPrinter("outputDfaComplement.dot");
+            printerDfa = new DFA2DOTPrinter("../../../outputDfaComplement.dot");
             printerDfa.print(dfaComp, dfaComp.getParameters());
             printerDfa.close();
 
@@ -94,7 +94,7 @@ public class Main {
 
 
         } catch (FileNotFoundException e) {
-            System.err.println("Can't find file");
+            System.err.println("Can't find file: " + e.getLocalizedMessage());
             
         } catch (IOException e) {
             System.err.println(e.getMessage());
