@@ -1,13 +1,6 @@
 package homework3.nfa;
 
-/**
- * Created by IntelliJ IDEA.
- * User: griver
- * Date: 04.03.12
- * Time: 21:28
- * To change this template use File | Settings | File Templates.
- */
-public class NFAEdge {
+class NFAEdge {
     private String terminal = null;
     private NFANode destination = null;
     
@@ -26,4 +19,7 @@ public class NFAEdge {
         return destination;
     }
 
+    public void setTerminal(String terminal) {
+        this.terminal = terminal;
+    }
 }

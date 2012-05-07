@@ -7,14 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by IntelliJ IDEA.
- * User: griver
- * Date: 04.03.12
- * Time: 0:50
- * To change this template use File | Settings | File Templates.
- */
-
 public class RegularGrammarsReader implements GrammarsReader {
     public List<GrammarRule> read(String name) throws FileNotFoundException {
 

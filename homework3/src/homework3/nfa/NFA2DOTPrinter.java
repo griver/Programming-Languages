@@ -1,9 +1,6 @@
 package homework3.nfa;
 
-
 import java.io.*;
-import java.util.Map;
-
 
 public class NFA2DOTPrinter implements Closeable {
     private PrintWriter printWriter = null;
@@ -12,18 +9,16 @@ public class NFA2DOTPrinter implements Closeable {
         printWriter = new PrintWriter(new BufferedWriter(new FileWriter(filename)), true);    
     } 
     
-    public void print(Map<String, NFANode> automate, NFAParameters param) {
+    public void print(NFA automate, NFAParameters parameters) {
         String spaces = "    ";
-        printWriter.println("digraph " + param.automateName + " {");
-        
-        //можно сделать и одним зиклом но буду использовать более педантичную запись 
-        //сначала перечесление вершин
-        for(String nodeName : automate.keySet()) {
-            printWriter.print(spaces);
-            printWriter.println(nodeName + ";");
-        }
-        
-        //теперь ребер
+        printWriter.println("digraph " + parameters.automateName + " {");
+        printWriter.println("\trankdir=LR;");
+
+        printWriter.print("\tnode [shape = doublecircle]; " + parameters.finalState);
+
+        printWriter.println(";");
+        printWriter.println("\tnode [shape = circle];");
+
         for(String nodeName : automate.keySet()) {
             NFANode node = automate.get(nodeName);
 

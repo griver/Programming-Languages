@@ -1,12 +1,5 @@
 package homework3.nfa;
 
-/**
- * Created by IntelliJ IDEA.
- * User: griver
- * Date: 05.03.12
- * Time: 16:46
- * To change this template use File | Settings | File Templates.
- */
 public class NFAParameters {
     public String finalState = null;
     public String startState = null;

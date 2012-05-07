@@ -49,6 +49,7 @@ public class NFA extends HashMap<String, NFANode> {
     private void copyIncomingEdges(NFANode first, NFANode second) {
         for(NFANode node : values()) {
             LinkedList<NFAEdge> copy = new LinkedList<NFAEdge>(node.getEdges());
+            Iterator<NFAEdge> it = copy.iterator();
             while(!copy.isEmpty()) {
                 NFAEdge edge = copy.pollFirst();
                 if(edge.getDestination().equals(first)) {
@@ -70,15 +71,9 @@ public class NFA extends HashMap<String, NFANode> {
             entry.getValue().setNonterminal(prefix + entry.getValue().getNonterminal());
             newNfa.put(prefix + entry.getKey(), entry.getValue());
         }
-
-        List<String> newFinalState = new LinkedList<String>();
-        for(String finalState : parameters.finalState) {
-            newFinalState.add(prefix + finalState);
-        }
-
         NFAParameters newParameters = new NFAParameters(
                 prefix + parameters.startState,
-                newFinalState,
+                prefix + parameters.finalState,
                 parameters.emptyTerminal,
                 parameters.automateName
         );

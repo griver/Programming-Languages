@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class DFANode {
+class DFANode {
     private Set<String> key = null;
     private List<DFAEdge> edges = null;
     

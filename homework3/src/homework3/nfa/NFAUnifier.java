@@ -1,7 +1,7 @@
 package homework3.nfa;
 
 public class NFAUnifier {
-    private NFAParameters parameters = null;
+    NFAParameters parameters = null;
 
     public NFAUnifier(NFAParameters parameters) {
         this.parameters = parameters;
@@ -23,20 +23,20 @@ public class NFAUnifier {
                 new NFAEdge(parameters.emptyTerminal,
                         second.get(second.getParameters().startState)));
 
-        NFANode newFinalState = new NFANode(parameters.finalState.get(0));
+        NFANode newFinalState = new NFANode(parameters.finalState);
 
-        first.get(first.getParameters().finalState.get(0)).addEdge(
+        first.get(first.getParameters().finalState).addEdge(
                 new NFAEdge(parameters.emptyTerminal, newFinalState)
         );
 
-        second.get(second.getParameters().finalState.get(0)).addEdge(
+        second.get(second.getParameters().finalState).addEdge(
                 new NFAEdge(parameters.emptyTerminal, newFinalState)
         );
 
         nfa.putAll(first);
         nfa.putAll(second);
         nfa.put(parameters.startState, newStartState);
-        nfa.put(parameters.finalState.get(0), newFinalState);
+        nfa.put(parameters.finalState, newFinalState);
         nfa.setParameters(parameters);
         return nfa;
     }

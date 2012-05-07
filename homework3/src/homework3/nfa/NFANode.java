@@ -14,18 +14,15 @@ public class NFANode {
         this.nonterminal = nonterm;
         this.edges = new ArrayList<NFAEdge>();
     }
-    public void setActivity(boolean value) {
-        this.active = value; 
-    }
-    
-    public boolean  getActivity() {
-        return this.active;
-    }
     
     public String getNonterminal() {
         return nonterminal;
     }
-    
+
+    public void setNonterminal(String nonterminal) {
+        this.nonterminal = nonterminal;
+    }
+
     public void addEdge(NFAEdge edge) {
         this.edges.add(edge);
     }
@@ -37,7 +34,7 @@ public class NFANode {
     public Set<NFANode> getTerminalClosure(String terminal,
                                            String emptyTerminal) {
         Set<NFANode> result = new HashSet<NFANode>();
-        if(terminal == emptyTerminal) {
+        if(terminal.equals(emptyTerminal)) {
             result.add(this);
         }
         for (NFAEdge edge : edges) {

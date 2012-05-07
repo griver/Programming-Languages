@@ -1,23 +1,15 @@
 package homework3.nfa;
 
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 
-/**
- * Created by IntelliJ IDEA.
- * User: griver
- * Date: 05.03.12
- * Time: 15:59
- * To change this template use File | Settings | File Templates.
- */
 public class NFAInterpreter {
-    private Map<String, NFANode> automate = null;
+    private NFA automate = null;
     private NFAParameters parameters = null;
     private Set<NFANode> activeNodes = null;
     
-    public NFAInterpreter(Map<String, NFANode> automate, NFAParameters parameters ) {
+    public NFAInterpreter(NFA automate, NFAParameters parameters ) {
         this.automate = automate;
         this.parameters = parameters; 
         this.activeNodes = new HashSet<NFANode>();
@@ -39,7 +31,7 @@ public class NFAInterpreter {
     }
 
 
-    public void changeState(String terminal) {
+    void changeState(String terminal) {
         Set<NFANode> nodes = new HashSet<NFANode>();
         NFANode destination;
         
@@ -64,10 +56,5 @@ public class NFAInterpreter {
         }
         
         activeNodes = nodes;
-    }
-
-
-    public Set<NFANode> getActiveNodes() {
-        return this.activeNodes;
     }
 }

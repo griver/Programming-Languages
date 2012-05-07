@@ -1,7 +1,6 @@
 package homework3.dfa;
 
 import java.io.*;
-import java.util.Map;
 import java.util.Set;
 
 
@@ -12,7 +11,7 @@ public class DFA2DOTPrinter implements Closeable {
         printWriter = new PrintWriter(new BufferedWriter(new FileWriter(filename)), true);    
     } 
     
-    public void print(Map<Set<String>, DFANode> automate, DFAParameters parameters) {
+    public void print(DFA automate, DFAParameters parameters) {
         printWriter.println("digraph " + parameters.automateName + " {");
         printWriter.println("\trankdir=LR;");
 
@@ -20,10 +19,9 @@ public class DFA2DOTPrinter implements Closeable {
         for(DFANode node : parameters.finalState) {
             printWriter.print(setToString(node.getKey(), ", ") + " ");
         }
-
         printWriter.println(";");
+
         printWriter.println("\tnode [shape = circle];");
-        
         for(Set<String> nodeName : automate.keySet()) {
             DFANode node = automate.get(nodeName);
 

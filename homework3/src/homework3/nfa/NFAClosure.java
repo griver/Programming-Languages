@@ -7,6 +7,6 @@ public class NFAClosure {
                 nfa.get(nfa.getParameters().startState)
                 );
 
-        nfa.get(nfa.getParameters().finalState.get(0)).addEdge(edge);
+        nfa.get(nfa.getParameters().finalState).addEdge(edge);
     }
 }

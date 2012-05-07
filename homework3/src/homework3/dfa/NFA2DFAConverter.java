@@ -1,39 +1,28 @@
 package homework3.dfa;
 
-import homework3.nfa.NFAEdge;
+import homework3.nfa.NFA;
 import homework3.nfa.NFANode;
 import homework3.nfa.NFAParameters;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class NFA2DFAConverter {
-    private NFAParameters nfaParameters = null;
-    private final Map<String, NFANode> nfa;
-    private DFAParameters dfaParameters = null;
-    private Map<Set<String>, DFANode> dfa;
+    private final NFAParameters nfaParameters;
+    private final NFA nfa;
+    private DFA dfa;
 
-    // This method should be in other place, in class NFA, but we haven't one
-    public static Set<String> getAlphabet(Map<String, NFANode> nfa) {
-        Set<String> alphabet = new TreeSet<String>();
-
-        for(NFANode node : nfa.values()) {
-            for(NFAEdge edge : node.getEdges()) {
-                alphabet.add(edge.getTerminal());
-            }
-        }
-
-        return alphabet;
-    }
-
-    public NFA2DFAConverter(NFAParameters parameters, Map<String, NFANode> nfa) {
-        this.nfaParameters = parameters;
+    public NFA2DFAConverter(NFA nfa) {
+        this.nfaParameters = nfa.getParameters();
         this.nfa = nfa;
     }
 
-    public Map<Set<String>, DFANode> convert() {
-        Map<Set<String>, DFANode> dfa = new HashMap<Set<String>,DFANode>();
+    public DFA getDFA() {
+        DFA dfa = new DFA();
         String eps = nfaParameters.emptyTerminal;
-        Set<String> alphabet = getAlphabet(nfa);
+        Set<String> alphabet = nfa.getAlphabet();
         alphabet.remove(eps);
 
         Map<Set<NFANode>, Boolean> DStates =
@@ -82,11 +71,11 @@ public class NFA2DFAConverter {
 
         this.dfa = dfa;
         // Generating parameters for our new DFA
-        generateParameters();
+        dfa.setParameters(generateParameters());
         return dfa;
     }
 
-    private void generateParameters() {
+    private DFAParameters generateParameters() {
         Set<DFANode> finalState = new HashSet<DFANode>();
         DFANode startState = null;
 
@@ -100,12 +89,13 @@ public class NFA2DFAConverter {
             }
         }
 
-        dfaParameters = new DFAParameters(startState, finalState,
+        return new DFAParameters(startState, finalState,
                 nfaParameters.automateName + "DFA");
+
     }
 
     // Helper method
-    public static <T, E> T getKeyByValue(Map<T, E> map, E value) {
+    private static <T, E> T getKeyByValue(Map<T, E> map, E value) {
         for (Map.Entry<T, E> entry : map.entrySet()) {
             if (value.equals(entry.getValue())) {
                 return entry.getKey();
@@ -130,9 +120,5 @@ public class NFA2DFAConverter {
             result.add(node.getNonterminal());
         }
         return result;
-    }
-
-    public DFAParameters getParameters() {
-        return dfaParameters;
     }
 }

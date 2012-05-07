@@ -1,15 +1,11 @@
 package homework3.dfa;
 
-import java.util.Map;
-import java.util.Set;
-
-
 public class DFAInterpreter {
     private DFAParameters parameters = null;
-    private Map<Set<String>, DFANode> automate = null;
+    private DFA automate = null;
     private DFANode activeNode = null;
 
-    public DFAInterpreter(Map<Set<String>, DFANode> automate, DFAParameters parameters) {
+    public DFAInterpreter(DFA automate, DFAParameters parameters) {
         this.automate = automate;
         this.parameters = parameters;
     }
