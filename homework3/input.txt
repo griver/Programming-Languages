@@ -1,4 +1,6 @@
-S : aS
-S : aB
-B : b
-B :
+S : 0S
+S : 1A
+A : 0A
+A : 1S
+A : 1
+S :

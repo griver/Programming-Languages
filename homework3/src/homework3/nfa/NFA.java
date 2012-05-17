@@ -29,9 +29,13 @@ public class NFA extends HashMap<String, NFANode> {
     public void removeEpsilon() {
         // It's not the fastest algorithm, but sufficient for learning and
         // easy to implement.
+
+        //HashMap<String, NFANode> temp = new HashMap<String, NFANode>(this);
         for(NFANode node : values()) {
             List<NFAEdge> edgesToRemove = new LinkedList<NFAEdge>();
-            for (NFAEdge edge : node.getEdges()) {
+            LinkedList<NFAEdge> copy = new LinkedList<NFAEdge>(node.getEdges());
+            while(!copy.isEmpty()) {
+                NFAEdge edge = copy.poll();
                 if(edge.getTerminal().equals(parameters.emptyTerminal)) {
                     copyIncomingEdges(node, edge.getDestination());
                     copyOutcomingEdges(edge.getDestination(), node);
@@ -49,7 +53,6 @@ public class NFA extends HashMap<String, NFANode> {
     private void copyIncomingEdges(NFANode first, NFANode second) {
         for(NFANode node : values()) {
             LinkedList<NFAEdge> copy = new LinkedList<NFAEdge>(node.getEdges());
-            Iterator<NFAEdge> it = copy.iterator();
             while(!copy.isEmpty()) {
                 NFAEdge edge = copy.pollFirst();
                 if(edge.getDestination().equals(first)) {

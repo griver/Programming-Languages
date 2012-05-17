@@ -1,16 +1,15 @@
 package homework3.dfa;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 class DFANode {
     private Set<String> key = null;
-    private List<DFAEdge> edges = null;
+    private HashSet<DFAEdge> edges = null;
     
     public DFANode(Set<String> key) {
         this.key = key;
-        this.edges = new ArrayList<DFAEdge>();
+        this.edges = new HashSet<DFAEdge>();
     }
 
     public Set<String> getKey() {
@@ -21,7 +20,7 @@ class DFANode {
         this.edges.add(edge);
     }
     
-    public List<DFAEdge> getEdges() {
+    public Set<DFAEdge> getEdges() {
         return this.edges;
     }
 
